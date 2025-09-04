@@ -31,10 +31,11 @@
      </style>
 </head>
 
-<body>
-    <main>
-        <nav>
-            <div class="navbar bg-base-100 shadow-sm">
+<body >
+    <!-- Navbar -->
+    <header>
+        <nav class="">
+            <div class="navbar bg-base-100 shadow-sm lg:px-16 ">
                 <div class="navbar-start">
                     <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -42,19 +43,14 @@
                     </div>
                     <ul
                         tabindex="0"
-                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
-                        <li>
-                        <a>Parent</a>
-                        <ul class="p-2">
-                            <li><a>Submenu 1</a></li>
-                            <li><a>Submenu 2</a></li>
-                        </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
+                        <li><a class=" btn-outline btn-primary text-base">FAQ</a></li>
+                        <li><a class=" btn-outline btn-primary text-base">Learn</a></li>
+                        <li><a class=" btn-outline btn-primary text-base">Logout</a></li>
+
                     </ul>
                     </div>
-                    <a class="text-xl flex items-center gap-1 ">
+                    <a class="text-xl flex items-center gap-1 " href="#">
                         <p class="font-bold">English</p>
                         <img src="assets/logo.png" alt="">
                         <p class="bangla">জানালা</p>
@@ -62,10 +58,44 @@
                 </div>
                 
                 <div class="navbar-end">
-                    <a class="btn btn-primary">Button</a>
+                    
                 </div>
+
+                <div class="navbar-end hidden lg:flex">
+                    <a class="btn btn-outline btn-primary mr-3">FAQ</a>
+                    <a class="btn btn-outline btn-primary mr-3">Learn</a>
+                    <a class="btn btn-outline btn-primary">Logout</a>
                 </div>
+            </div>
         </nav>
+
+        <main>
+
+        </main>
+    </header>
+    <main class="min-W-[calc(100vh-64px)] flex items-center justify-center lg:px-16 px-6">
+        <!-- hero section -->
+        <section class="flex flex-col-reverse lg:flex-row items-center justify-center gap-10">
+            <div >
+                <h1 class="text-4xl font-bold pb-5">
+                    <span class="text-[#00BCFF]">English</span> is Easy!!
+                </h1>
+                <p class="bangla font-medium text-[1.25rem] text-[#18181B] max-w-[600px]">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে যাবে অন্য একটি Level এ</p>
+
+                <div class="flex flex-col gap-4 mt-6 ">
+                    <input type="text" placeholder="Enter Your Name" class="input input-primary" />
+                    <input type="email" placeholder="Enter Your Email" class="input input-primary" />
+                    <button class="btn btn-primary text-normal w-30">Get Started</button>
+                </div>
+            </div>
+            <div>
+                <img src="assets/hero-student.png" alt="">
+            </div>
+        </section>
+
+        <!-- let's learn section -->
+         
+
     </main>
 </body>
 </html>
