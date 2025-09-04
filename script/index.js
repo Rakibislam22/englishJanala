@@ -8,9 +8,11 @@ const loadData = ()=>{
 
 // featch lesson word
 const selectLesson = (id) => {
+    spinner(true);
     fetch(`https://openapi.programming-hero.com/api/level/${id}`)
     .then(response => response.json())
     .then(data =>{
+        document.getElementById('input-c').value = '';
         const previousActive = document.querySelectorAll('.active');
         previousActive.forEach(element => {
             element.classList.remove('active');
@@ -19,12 +21,67 @@ const selectLesson = (id) => {
         document.getElementById(`lesson-${id}`).classList.add('active');
 
         displayWord(data.data) ;
+        spinner(false);
     });
     
 }
 
+// spninner
+const spinner = (show) =>{
+    if(show){
+        document.getElementById('loading').classList.remove('hidden');
+        document.getElementById('word-container').classList.add('hidden');
+    }
+    else{
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('word-container').classList.remove('hidden');
+    }
+
+}
+
+// spninner for modal
+const modalSpinner = (show) =>{
+    if(show){
+        document.getElementById('modal-l').classList.remove('hidden');
+        document.getElementById('modal-content').classList.add('hidden');
+    }
+    else{
+        document.getElementById('modal-l').classList.add('hidden');
+        document.getElementById('modal-content').classList.remove('hidden');
+    }
+}
+
+// pronounce word
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
+// featch all word info
+const allword = () => {
+    spinner(true);
+    fetch(`https://openapi.programming-hero.com/api/words/all`)
+    .then(response => response.json())
+    .then(data => {
+        const inputch = document.getElementById('input-c').value.trim().toLowerCase();
+        const matchedW = data.data.filter(element => element.word.toLowerCase().includes(inputch));
+        
+        const previousActive = document.querySelectorAll('.active');
+        previousActive.forEach(element => {
+            element.classList.remove('active');
+        });
+
+        displayWord(matchedW);
+        spinner(false);
+
+    });
+}
+
 // load word info in modal
 const loadWordInfo = (id) =>{
+    modalSpinner(true);
+    my_modal_5.showModal();
     fetch(`https://openapi.programming-hero.com/api/word/${id}`)
     .then(response => response.json())
     .then(data => {
@@ -50,11 +107,12 @@ const loadWordInfo = (id) =>{
                 <div class="flex flex-wrap gap-2 pt-2">
                     ${(data.data.synonyms.length > 0) ? data.data.synonyms.map(syn => `<button class="btn">${syn}</button>`).join('') : '<p class="bangla">সমার্থক শব্দ পাওয়া যায়নি</p>'}
                 </div>
-            </div>
-            
+            </div>          
             
         `;
         my_modal_5.showModal();
+        modalSpinner(false);
+  
     });
 }
 
@@ -85,7 +143,7 @@ const displayWord = (word)=>{
                     <h1 class="text-2xl font-semibold text-[#18181B]">"${(w.meaning) ? w.meaning : 'অর্থ পাওয়া যায়নি'} / ${(w.pronunciation) ? w.pronunciation : 'উচ্চারণ পাওয়া যায়নি'}"</h1>
                     <div class="flex justify-between pt-8">
                         <button onclick="loadWordInfo(${w.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF50]"><i class="fa-solid fa-circle-info"></i></button>
-                        <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF50]"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="pronounceWord('${w.word}')" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF50]"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                 </div>
         `
@@ -104,6 +162,24 @@ const label =(data)=>{
         `
     }
 }
+// FAQ toggle
+function toggleFAQ(button) {
+      const item = button.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.icon');
+
+      // close all others
+      document.querySelectorAll('.faq-answer').forEach(el => {
+        if (el !== answer) el.classList.add('hidden');
+      });
+      document.querySelectorAll('.faq-question .icon').forEach(el => {
+        if (el !== icon) el.textContent = '+';
+      });
+
+      // toggle clicked one
+      answer.classList.toggle('hidden');
+      icon.textContent = answer.classList.contains('hidden') ? '+' : '-';
+    }
 
 // initial call
 loadData();

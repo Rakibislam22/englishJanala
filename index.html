@@ -34,11 +34,11 @@
         .bangla {
             font-family: "Hind Siliguri", sans-serif;
         }
-        .active{
+
+        .active {
             background-color: #422AD5;
             color: white;
         }
-
     </style>
 </head>
 
@@ -79,8 +79,8 @@
                 </div>
 
                 <div class="navbar-end hidden lg:flex">
-                    <a class="btn btn-outline btn-primary mr-3"><img src="assets/fa-circle-question.png" alt="">FAQ</a>
-                    <a class="btn btn-outline btn-primary mr-3"><img src="assets/fa-book-open.png" alt=""> Learn</a>
+                    <a class="btn btn-outline btn-primary mr-3" href="#FAQ"><img src="assets/fa-circle-question.png" alt="">FAQ</a>
+                    <a class="btn btn-outline btn-primary mr-3" href="#learn"><img src="assets/fa-book-open.png" alt=""> Learn</a>
                     <a class="btn btn-outline btn-primary"><img src="assets/fa-arrow-right-from-bracket.png" alt="">
                         Logout</a>
                 </div>
@@ -116,7 +116,7 @@
         <!-- let's learn section -->
         <section class="mt-25 mb-10">
             <div>
-                <h1 class="text-3xl font-bold text-center"><span class="text-[#00BCFF]">Let's</span> Learn Vocabularies
+                <h1 id="learn" class="text-3xl font-bold text-center"><span class="text-[#00BCFF]">Let's</span> Learn Vocabularies
                 </h1>
             </div>
             <div id="lesson" class="flex flex-wrap gap-6 mt-10 justify-center">
@@ -124,11 +124,34 @@
 
             </div>
         </section>
+
+        <!-- search section -->
+        <section class="mb-10 text-center">
+            <div class="join ">
+                <div>
+                    <label class="input validator join-item">
+
+                        <input id="input-c" type="text" placeholder="Search Word" required />
+                    </label>
+
+                </div>
+                <button onclick="allword()" class="btn btn-primary join-item">
+                    <Search>Search
+                </button>
+            </div>
+        </section>
+
+        <!-- loading -->
+        <div class="flex justify-center py-20 hidden" id="loading">
+            <span class="loading loading-dots loading-xl"></span>
+        </div>
+
+        <!-- word container -->
         <section class="w-11/12 mx-auto bg-[#F8F8F8] p-10 rounded-xl ">
-            
+
             <div id="word-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="py-8 space-y-4 text-center col-span-full">
-                    <p class="bangla text-[#79716B]">আপনি এখনো কোন Lesson Select করেন নি।</p>
+                    <p class="bangla text-[#F8F8F8]">আপনি এখনো কোন Lesson Select করেন নি।</p>
                     <h1 class="text-3xl text-[#292524] font-medium bangla">একটি Lesson Select করুন।</h1>
                 </div>
             </div>
@@ -136,17 +159,119 @@
             <!-- Open the modal using ID.showModal() method -->
             <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box">
-                    <div id="modal-content"></div>
+                    <div class="flex justify-center py-20 hidden" id="modal-l">
+                        <span class="loading loading-dots loading-xl"></span>
+                    </div>
+                    <div id="modal-content" class="p-4 border-solid border-2 border-[#EDF7FF] rounded-xl"></div>
                     <div class="modal-action">
-                    <form method="dialog">
-                        <!-- if there is a button in form, it will close the modal -->
-                        <button class="btn">Close</button>
-                    </form>
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn btn-primary">Complete Learning</button>
+                        </form>
                     </div>
                 </div>
             </dialog>
-         
+
         </section>
+
+        <!-- FAQ Section -->
+        <section id="FAQ" class="max-w-3xl mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center mb-10 ">
+                <span class="text-[#00BCFF]">Frequently</span> Asked Questions
+            </h2>
+
+            <!-- FAQ Items -->
+            <div class="space-y-3">
+
+                <!-- Item 1 -->
+                <div class="faq-item bg-[#F8F8F8] rounded-lg shadow-sm">
+                    <button onclick="toggleFAQ(this)"
+                        class="faq-question w-full flex justify-between items-center px-4 py-3 text-left font-medium text-gray-800">
+                        <span>1. How can I start learning English on this website?</span>
+                        <span class="icon text-xl">+</span>
+                    </button>
+                    <div class="faq-answer px-4 pb-4 text-gray-600 text-sm hidden">
+                        You can start by exploring our beginner lessons, interactive exercises, and quizzes.
+                        We also offer structured courses to guide you step by step.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-item bg-[#F8F8F8] rounded-lg shadow-sm">
+                    <button onclick="toggleFAQ(this)"
+                        class="faq-question w-full flex justify-between items-center px-4 py-3 text-left font-medium text-gray-800">
+                        <span>2. Is this website free to use?</span>
+                        <span class="icon text-xl">+</span>
+                    </button>
+                    <div class="faq-answer px-4 pb-4 text-gray-600 text-sm hidden">
+                        Yes, this website is completely free to use for learning English.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-item bg-[#F8F8F8] rounded-lg shadow-sm">
+                    <button onclick="toggleFAQ(this)"
+                        class="faq-question w-full flex justify-between items-center px-4 py-3 text-left font-medium text-gray-800">
+                        <span>3. Do I need to create an account?</span>
+                        <span class="icon text-xl">+</span>
+                    </button>
+                    <div class="faq-answer px-4 pb-4 text-gray-600 text-sm hidden">
+                        Creating an account helps you track your progress, but you can also explore without signing up.
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="faq-item bg-gray-50 rounded-lg shadow-sm">
+                    <button onclick="toggleFAQ(this)"
+                        class="faq-question w-full flex justify-between items-center px-4 py-3 text-left font-medium text-gray-800">
+                        <span>4. How can I build my English vocabulary?</span>
+                        <span class="icon text-xl">+</span>
+                    </button>
+                    <div class="faq-answer px-4 pb-4 text-gray-600 text-sm hidden">
+                        You can improve vocabulary by practicing with our flashcards, quizzes, and reading exercises.
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="faq-item bg-gray-50 rounded-lg shadow-sm">
+                    <button onclick="toggleFAQ(this)"
+                        class="faq-question w-full flex justify-between items-center px-4 py-3 text-left font-medium text-gray-800">
+                        <span>5. Do you offer certificates for completed courses?</span>
+                        <span class="icon text-xl">+</span>
+                    </button>
+                    <div class="faq-answer px-4 pb-4 text-gray-600 text-sm hidden">
+                        Yes, certificates are available for selected structured courses upon completion.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 mt-20 py-12 lg:px-16  flex lg:flex-row flex-col-reverse lg:justify-between items-center">
+            <div class=" mb-2 max-sm:text-center">
+                <div class="text-xl flex items-center gap-1 mb-3 max-sm:justify-center" >
+                        <p class="font-bold">English</p>
+                        <img src="assets/logo.png" alt="">
+                        <p class="bangla">জানালা</p>
+                </div>
+                <div class="text-xl bangla mb-3">
+                ইংরেজি শিখুন সহজে</div>
+                <div class="text-sm ">Providing ED-Tech Applications since 2025</div>
+                
+            </div>
+            
+            <div class="max-sm:text-center">
+                <p >FOLLOW US</p>
+                <div class="flex justify-start items-center my-6 space-x-4 max-sm:mb-5">
+                    <a href="#" class="text-xl"><img src="assets/fb-thumb.png" alt=""></a>
+                    <a href="#" class="text-xl"><img src="assets/youtube-thumb.png" alt=""></a>
+                    <a href="#" class="text-xl"><img src="assets/instagram-thumb.png" alt=""></a>
+                    <a href="#" class="text-xl"><img src="assets/github-thumb.png" alt=""></a>
+                </div>
+            </div>
+            
+        </footer>
 
 
     </main>
